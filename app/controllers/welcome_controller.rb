@@ -43,7 +43,10 @@ class WelcomeController < ApplicationController
 	end
 
 	def contact
-
+		url = 'https://www.gvsu.edu/webteam/sample_129387238476.json'
+		response = HTTParty.get(url)
+		@organizations = JSON.parse(response.body)
+		@organization = @organizations.find {|organization| organization['id'] ==  params[:id].to_i}
 	end
 
 	def contact_post

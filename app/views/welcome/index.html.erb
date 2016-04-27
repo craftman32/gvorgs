@@ -2,7 +2,7 @@
 	<h1>
 		Welcome to OrgSink
 	</h1>
-	<%= image_tag "sink.jpg", class: "img-responsive center-block" %>
+	<%= image_tag "sink.jpg", class: "img-responsive center-block", size: "200x300" %>
 	<p>
 		Welcome to OrgSink! The number one organization solution!
 	</p>
@@ -11,12 +11,13 @@
 	<div class="col-md-4">
 		<div class="well">
 			<p>
-				<strong>Search for an organization by category</strong>
+				<strong></strong>
 			</p>
 			<%= form_tag("/welcome/list", method: "get") do %>
-				<p>
-					<%= select_tag(:category, options_for_select(@categories), :prompt => "- Select an Organization Category -") %>
-				</p>
+				<div class="form-group">
+					<%= label_tag(:category, "Search for an organization by category:") %>
+					<%= select_tag(:category, options_for_select(@categories), :prompt => "- Select an Organization Category -", class: "form-control") %>
+				</div>
 				<p>
 					<%= button_tag "Search", class: "btn btn-primary", data: {disable_with: "Searching please wait..."} %>
 				</p>
@@ -25,13 +26,11 @@
 	</div>
 	<div class="col-md-4">
 		<div class="well">
-			<p>
-				<strong>Search for an organization by organization name</strong>
-			</p>
 			<%= form_tag("/welcome/list", method: "get") do %>
-				<p>
-					<%= text_field_tag :search_term %>
-				</p>
+				<div class="form-group">
+					<%= label_tag(:search_term, "Search for an organization by name:") %>
+					<%= text_field_tag :search_term, params[:search_term], class: "form-control" %>
+				</div>
 				<p>
 					<%= button_tag "Search", class: "btn btn-primary", data: {disable_with: "Searching please wait..."} %>
 				</p>

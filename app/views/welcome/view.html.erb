@@ -13,6 +13,10 @@
 				<%= @organization['description'] %>
 			</p>
 			<p>
+				<strong>Website:</strong> 
+				<%= @organization['website_url'] %>
+			</p>
+			<p>
 				<strong>Category:</strong> 
 				<%= @organization['category']['name'] %>
 			</p>
@@ -24,5 +28,8 @@
 	</div>
 <% end %>
 <p>
+	<%= link_to welcome_contact_path(:id => @organization['id']), class: 'btn btn-default' do %>
+		<i class="glyphicon glyphicon-envelope"></i> Contact This Organization
+	<% end %>
 	<%= link_to "Back", welcome_list_path %>
 </p>

@@ -6,15 +6,18 @@
 		Search
 	</h3>
 	<%= form_tag("/welcome/list", method: "get") do %>
-		<p>
-			Search Organization Name: <%= text_field_tag :search_term, params[:search_term] %>
-		</p>
-		<p>
-			Search Organization Keywords: <%= text_field_tag :keywords, params[:keywords] %>
-		</p>
-		<p>
-			Organization Type: <%= select_tag(:category, options_for_select(@categories, params[:category]), :prompt => "- Select an Organization Category -") %>
-		</p>
+		<div class="form-group">
+			<%= label_tag(:search_term, "Organization Name:") %>
+			<%= text_field_tag :search_term, params[:search_term], class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%= label_tag(:keywords, "Organization Keywords:") %>
+			<%= text_field_tag :keywords, params[:keywords], class: "form-control" %>
+		</div>
+		<div class="form-group">
+			<%= label_tag(:category, "Organization Type:") %>
+			<%= select_tag(:category, options_for_select(@categories, params[:category]), :prompt => "- Select an Organization Category -", class: "form-control") %>
+		</div>
 		<p>
 			<%= button_tag "Search", class: "btn btn-primary", data: {disable_with: "Searching please wait..."} %>
 			<% if params[:search_term].present? || params[:category].present? || params[:keywords].present? %>
@@ -54,7 +57,12 @@
 					<%= organization['keywords'] %>
 				</p>
 				<p>
-					<%= link_to 'More Information', welcome_view_path(:id => organization['id']), class: 'btn btn-primary' %>
+					<%= link_to welcome_view_path(:id => organization['id']), class: 'btn btn-primary' do %>
+						<i class="glyphicon glyphicon-search"></i> More Information
+					<% end %>
+					<%= link_to welcome_contact_path(:id => organization['id']), class: 'btn btn-default' do %>
+						<i class="glyphicon glyphicon-envelope"></i> Contact This Organization
+					<% end %>
 				</p>
 			</div>
 		</div>
