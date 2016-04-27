@@ -1,0 +1,36 @@
+<h1>
+	Contact Us
+</h1>
+<%= form_tag("/welcome/contact_post", method: "post") do %>
+	<p>
+		<label>
+			<strong>First Name:*</strong>
+			<br />
+			<%= text_field_tag :first_name, nil, :required => true %>
+		</label>
+	</p>
+	<p>
+		<label>
+			<strong>Last Name:*</strong>
+			<br />
+			<%= text_field_tag :last_name, nil, :required => true %>
+		</label>
+	</p>
+	<p>
+		<label>
+			<strong>Subject:*</strong>
+			<br />
+			<%= text_field_tag :subject, nil, :required => true %>
+		</label>
+	</p>
+	<p>
+		<label>
+			<strong>Message:*</strong>
+			<br />
+			<%= text_area_tag :message, nil, :required => true, size: "40x5" %>
+		</label>
+	</p>
+	<p>
+		<%= button_tag "Submit", class: "btn btn-primary", data: {disable_with: "Loading please wait..."} %>
+	</p>
+<% end %>

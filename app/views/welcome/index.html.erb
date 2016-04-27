@@ -1,0 +1,51 @@
+<div class="row text-center">
+	<h1>
+		Welcome to OrgSink
+	</h1>
+	<%= image_tag "sink.jpg", class: "img-responsive center-block" %>
+	<p>
+		Welcome to OrgSink! The number one organization solution!
+	</p>
+</div>
+<div class="row text-center">
+	<div class="col-md-4">
+		<div class="well">
+			<p>
+				<strong>Search for an organization by category</strong>
+			</p>
+			<%= form_tag("/welcome/list", method: "get") do %>
+				<p>
+					<%= select_tag(:category, options_for_select(@categories), :prompt => "- Select an Organization Category -") %>
+				</p>
+				<p>
+					<%= button_tag "Search", class: "btn btn-primary", data: {disable_with: "Searching please wait..."} %>
+				</p>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			<p>
+				<strong>Search for an organization by organization name</strong>
+			</p>
+			<%= form_tag("/welcome/list", method: "get") do %>
+				<p>
+					<%= text_field_tag :search_term %>
+				</p>
+				<p>
+					<%= button_tag "Search", class: "btn btn-primary", data: {disable_with: "Searching please wait..."} %>
+				</p>
+			<% end %>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<div class="well">
+			<p>
+				<strong>See a list of all organizations</strong>
+			</p>
+			<p>
+				<%= link_to 'All Organizations', welcome_list_path, :class=>'btn btn-default' %>
+			</p>
+		</div>
+	</div>
+</div>
