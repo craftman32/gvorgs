@@ -3,23 +3,22 @@
 		Welcome to OrgSink
 	</h1>
 	<%= image_tag "sink.jpg", class: "img-responsive center-block", size: "200x300" %>
-	<p>
+	<h3>
 		Welcome to OrgSink! The number one organization solution!
-	</p>
+	</h3>
 </div>
 <div class="row text-center">
 	<div class="col-md-4">
 		<div class="well">
-			<p>
-				<strong></strong>
-			</p>
 			<%= form_tag("/welcome/list", method: "get") do %>
 				<div class="form-group">
 					<%= label_tag(:category, "Search for an organization by category:") %>
-					<%= select_tag(:category, options_for_select(@categories), :prompt => "- Select an Organization Category -", class: "form-control") %>
+					<%= select_tag(:category, options_for_select($categories), :prompt => "- Select an Organization Category -", class: "form-control") %>
 				</div>
 				<p>
-					<%= button_tag "Search", class: "btn btn-primary", data: {disable_with: "Searching please wait..."} %>
+					<%= button_tag class: "btn btn-primary", data: {disable_with: "Searching please wait..."} do %>
+						<i class="glyphicon glyphicon-search"></i> Search
+					<% end %>
 				</p>
 			<% end %>
 		</div>
@@ -32,7 +31,9 @@
 					<%= text_field_tag :search_term, params[:search_term], class: "form-control" %>
 				</div>
 				<p>
-					<%= button_tag "Search", class: "btn btn-primary", data: {disable_with: "Searching please wait..."} %>
+					<%= button_tag class: "btn btn-primary", data: {disable_with: "Searching please wait..."} do %>
+						<i class="glyphicon glyphicon-search"></i> Search
+					<% end %>
 				</p>
 			<% end %>
 		</div>

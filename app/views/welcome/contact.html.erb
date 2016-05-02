@@ -1,7 +1,14 @@
+<% if params[:status].present? %>
+	<% if params[:status] == 'contact_post' %>
+		<p class="bg-success">
+			Your message has been successfully sent!
+		</p>
+	<% end %>
+<% end %>
 <h1>
 	Contact Us
 </h1>
-<%= form_tag("/welcome/list", method: "get") do %>
+<%= form_tag("/welcome/contact_post", method: "post") do %>
 	<div class="form-group">
 		<%= label_tag(:first_name, "First Name:*") %>
 		<%= text_field_tag :first_name, nil, :required => true, class: "form-control" %>

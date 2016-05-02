@@ -11,51 +11,74 @@
 			<%= text_field_tag :search_term, params[:search_term], class: "form-control" %>
 		</div>
 		<div class="form-group">
-			<%= label_tag(:keywords, "Organization Keywords:") %>
-			<%= text_field_tag :keywords, params[:keywords], class: "form-control" %>
+			<%= label_tag(:keyword, "Organization Keyword:") %>
+			<%= text_field_tag :keyword, params[:keyword], class: "form-control" %>
 		</div>
 		<div class="form-group">
 			<%= label_tag(:category, "Organization Type:") %>
-			<%= select_tag(:category, options_for_select(@categories, params[:category]), :prompt => "- Select an Organization Category -", class: "form-control") %>
+			<%= select_tag(:category, options_for_select($categories, params[:category]), :prompt => "- Select an Organization Category -", class: "form-control") %>
 		</div>
 		<p>
-			<%= button_tag "Search", class: "btn btn-primary", data: {disable_with: "Searching please wait..."} %>
-			<% if params[:search_term].present? || params[:category].present? || params[:keywords].present? %>
-				<%= link_to "Clear", welcome_list_path, class: "btn btn-danger" %>
+			<%= button_tag class: "btn btn-primary", data: {disable_with: "Searching please wait..."} do %>
+				<i class="glyphicon glyphicon-search"></i> Search
+			<% end %>
+			<% if params[:search_term].present? || params[:category].present? || params[:keyword].present? %>
+				<%= link_to welcome_list_path, class: "btn btn-danger" do %>
+					<i class="glyphicon glyphicon-trash"></i> Clear Search
+				<% end %>
 			<% end %>
 		</p>
 	<% end %>
 </div>
-<% if @organizations.present? %>
-	<p>
-		<%= page_entries_info @organizations %>
-	</p>
-	<p>
-		<%= will_paginate(@organizations) %>
-	</p>
-	<% @organizations.each do |organization| %>
+<% if @organizationsList.present? %>
+	<div class="digg_pagination">
+		<div class="page_info">
+			<%= page_entries_info @organizationsList, :model => "organizations" %>
+		</div>
+		<%= will_paginate(@organizationsList, :container => false) %>
+	</div>
+	<% @organizationsList.each do |organization| %>
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<%= link_to image_tag(organization['pic_url']), organization['website_url'] %>
+				<% if organization['website_url'].present? %>
+					<%= link_to image_tag(organization['pic_url']), organization['website_url'] %>
+				<% else %>
+					<%= image_tag organization['pic_url'] %>
+				<% end %>
+
 				<h2>
 					<%= organization['long_name'] %>
 				</h2>
+
 				<p>
 					<strong>Description:</strong> 
 					<%= organization['description'] %>
 				</p>
+
+				<p>
+					<strong>Website:</strong>
+					<% if organization['website_url'].present? %>
+						<%= link_to organization['website_url'] %>
+					<% else %>
+						No website provided
+					<% end %>
+				</p>
+
 				<p>
 					<strong>Member Count:</strong> 
 					<%= organization['member_count'] %>
 				</p>
+
 				<p>
 					<strong>Category:</strong> 
 					<%= organization['category']['name'] %>
 				</p>
+
 				<p>
 					<strong>Keywords:</strong> 
 					<%= organization['keywords'] %>
 				</p>
+
 				<p>
 					<%= link_to welcome_view_path(:id => organization['id']), class: 'btn btn-primary' do %>
 						<i class="glyphicon glyphicon-search"></i> More Information
@@ -67,12 +90,12 @@
 			</div>
 		</div>
 	<% end %>
-	<p>
-		<%= page_entries_info @organizations %>
-	</p>
-	<p>
-		<%= will_paginate(@organizations) %>
-	</p>
+	<div class="digg_pagination">
+		<div class="page_info">
+			<%= page_entries_info @organizationsList, :model => "organizations" %>
+		</div>
+		<%= will_paginate(@organizationsList, :container => false) %>
+	</div>
 <% else %>
 	<p>
 		There are no records that match your search
